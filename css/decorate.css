@@ -1,0 +1,154 @@
+body {
+    /* background-color: #f1efe2; */
+    cursor: url(../img/cursor.png), default;
+    margin: 0;
+    padding: 0;
+}
+
+.wrap {
+    z-index: 9999;
+    position: absolute;
+    right: 200px;
+    top: 100px;
+    width: 100px;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+}
+
+.wrap .cube {
+    width: 50px;
+    height: 50px;
+    margin: 0;
+    transform-style: preserve-3d;
+    transform: rotateX(-30deg) rotateY(-80deg);
+    animation: rotate linear 20s infinite;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotateX(0deg) rotateY(0deg);
+    }
+    100% {
+        transform: rotateX(360deg) rotateY(360deg);
+    }
+}
+
+
+/* 大正方体 */
+
+.wrap .cube div {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    opacity: 0.8;
+    transition: all 0.4s;
+}
+
+.wrap .cube .out_front {
+    transform: rotateY(0deg) translateZ(100px);
+}
+
+.wrap .cube:hover .out_front {
+    transform: rotateY(0deg) translateZ(200px);
+}
+
+.wrap .cube .out_back {
+    transform: translateZ(-100px) rotateY(180deg);
+}
+
+.wrap .cube:hover .out_back {
+    transform: translateZ(-200px) rotateY(180deg);
+}
+
+.wrap .cube .out_left {
+    transform: rotateY(-90deg) translateZ(100px);
+}
+
+.wrap .cube:hover .out_left {
+    transform: rotateY(-90deg) translateZ(200px);
+}
+
+.wrap .cube .out_right {
+    transform: rotateY(90deg) translateZ(100px);
+}
+
+.wrap .cube:hover .out_right {
+    transform: rotateY(90deg) translateZ(200px);
+}
+
+.wrap .cube .out_top {
+    transform: rotateX(90deg) translateZ(100px);
+}
+
+.wrap .cube:hover .out_top {
+    transform: rotateX(90deg) translateZ(200px);
+}
+
+.wrap .cube .out_bottom {
+    transform: rotateX(-90deg) translateZ(100px);
+}
+
+.wrap .cube:hover .out_bottom {
+    transform: rotateX(-90deg) translateZ(200px);
+}
+
+.wrap .cube div img {
+    max-width: 300px;
+}
+
+.wrap .cube div .pic {
+    width: 200px;
+    height: 200px;
+}
+
+
+/* 大正方体结束 */
+
+
+/* 小正方体 */
+
+.wrap .cube span {
+    display: block;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    top: 50px;
+    left: 50px;
+}
+
+.wrap .cube .in_front {
+    transform: rotateY(0deg) translateZ(50px);
+}
+
+.wrap .cube .in_back {
+    transform: translateZ(-50px) rotateY(180deg);
+}
+
+.wrap .cube .in_left {
+    transform: rotateY(-90deg) translateZ(50px);
+}
+
+.wrap .cube .in_right {
+    transform: rotateY(90deg) translateZ(50px);
+}
+
+.wrap .cube .in_top {
+    transform: rotateX(90deg) translateZ(50px);
+}
+
+.wrap .cube .in_bottom {
+    transform: rotateX(-90deg) translateZ(50px);
+}
+
+.wrap .cube span img {
+    max-width: 300px;
+}
+
+.wrap .cube span .in_pic {
+    width: 100px;
+    height: 100px;
+}
+
+
+/* 小正方体结束 */

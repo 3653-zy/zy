@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>张毅'S博客</title>
+    <link rel="stylesheet" type="text/css" href="./css/decorate.css">
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
+    <link rel="stylesheet" type="text/css" href="./css/content.css">
+</head>
+
+<body>
+    <!--旋转正方体 start-->
+    <div class="wrap">
+        <!--包裹所有元素的容器-->
+        <div class="cube">
+            <!--前面图片 -->
+            <div class="out_front">
+                <img src="./img/in_1.jpg" class="pic">
+            </div>
+            <!--后面图片 -->
+            <div class="out_back">
+                <img src="./img/in_2.jpg" class="pic">
+            </div>
+            <!--左面图片 -->
+            <div class="out_left">
+                <img src="./img/in_3.jpg" class="pic">
+            </div>
+            <!--右面图片 -->
+            <div class="out_right">
+                <img src="./img/in_4.jpg" class="pic">
+            </div>
+            <!--上面图片 -->
+            <div class="out_top">
+                <img src="./img/in_5.jpg" class="pic">
+            </div>
+            <!--下面图片 -->
+            <div class="out_bottom">
+                <img src="./img/in_6.jpg" class="pic">
+            </div>
+
+            <!--小正方体 -->
+            <span class="in_front">
+                <img src="./img/bg_1.jpg" class="in_pic">
+            </span>
+            <span class="in_back">
+                 <img src="./img/bg_2.jpg" class="in_pic">
+            </span>
+            <span class="in_left">
+                <img src="./img/bg_3.jpg" class="in_pic">
+            </span>
+            <span class="in_right">
+                <img src="./img/bg_4.jpg" class="in_pic">
+            </span>
+            <span class="in_top">
+                <img src="./img/bg_5.jpg" class="in_pic">
+            </span>
+            <span class="in_bottom">
+                <img src="./img/bg_6.jpg" class="in_pic">
+            </span>
+        </div>
+    </div>
+
+    <div class="header">
+        <div class="logo">
+            <a href="/my.html" target="_blank">
+                <img src="/img/me.jpg">
+            </a>
+            <div class="title">
+                张毅<span>'S</span> 博客
+            </div>
+        </div>
+        <div class="text">
+            <div>希望是一个好东西</div>
+            <div>也许是最好的东西</div>
+            <div>而美好的事物永不消逝</div>
+            <div>---《肖申克的救赎》</div>
+        </div>
+    </div>
+
+    <div class="body">
+        <h3>快速排序</h3>
+        <div class="content">
+            <p>定义顺序存储线性表结构模板类、主程序应用函数定义</p>
+            <form action="">
+                <textarea name="" id="">
+//AppData_QuickSort.h
+#define CHARACTER ElementType   //实例数据元素句柄化
+#define age  key 
+class CHARACTER                // 实例数据元素类型的定义 
+{
+	public:
+		char number[10];
+		char name[10];
+		char sex[3];
+		int age;
+		char place[20];	
+};
+
+//QuickSort_Novel.h
+#include <iostream>
+    using namespace std;
+    
+    template < class ElementType >
+    class LinearList
+    {	//定义顺序储存结构线性表，线性表数据储存于 element[0...length - 1]
+        public:
+            LinearList(int MaxListSize = 10);   //构造函数
+            ~LinearList()						//析构函数 
+            {
+                delete []element;
+            }
+            int LengthLinearList(){return length;}
+            //求顺序储存线性表长度
+            bool GetElementLinearList(int k, ElementType &result);
+            //在顺序储存线性表中查找第k个元素，存入result中
+            int SearchElementLinearList(char * searchkey);
+            //在顺序储存线性表中查找值为searchkey(字符类型)的元素，返回元素位置(下标)
+            int SearchElementLinearList(int searchkey);
+            //在顺序储存线性表中查找值为searchkey(数值类型)的元素，返回元素位置(下标)
+            bool InsertElementLinearList(int k, ElementType & newvalue);
+            //插入值为 newvalue 元素到顺序储存线性表中第k个元素之后
+            bool DeleteElementLinearList(int k);
+            //在顺序储存线性表中删除第k个元素 
+            void DisplayElementLinearList(ElementType result);
+            //显示输出数据元素的值 
+            void DisplayLinearList(LinearList < ElementType > & AppList);
+            //显示输出线性表中所有的数据元素的值 
+            int Partition(int low,int high);
+            void Qsort(int low,int high);
+            void QuickSort(int n); 
+        private:
+            ElementType * element;
+            int length;
+            int MaxSpaceSize;	
+    };
+    
+    template < class ElementType >
+    LinearList < ElementType > :: 
+    LinearList (int MaxListSize)
+    {   //构造函数 
+        //定义顺序储存线性表空间大小 MaxSpaceSize ,申请元素空间 element ,定义长度初值 length
+        MaxSpaceSize = MaxListSize;
+        element = new ElementType[MaxSpaceSize];
+        length = 0; 
+    }
+    
+    template < class ElementType >
+    bool LinearList < ElementType > :: 
+    GetElementLinearList(int k, ElementType & result)
+    {
+        if(k < 1 || k > length)
+            return false;
+        result = element[k - 1];
+        return true;
+    }
+    
+    template < class ElementType >
+    int LinearList < ElementType > :: 
+    SearchElementLinearList(char * searchkey)
+    {//在顺序储存线性表中查找值为 searchkey 的元素
+     //如果找到，返回元素所在的位置(下标)；如果未找到，返回-1
+         for(int i = 0; i < length; i ++)
+             if(!strcmp(element[i].place, searchkey))
+                 return i;
+        return -1;	
+    }
+    
+    template < class ElementType >
+    int LinearList< ElementType > ::
+    SearchElementLinearList(int searchkey)
+    {//在顺序储存线性表中查找值为 searchkey 的元素
+     //如果找到，返回元素所在的位置(下标)；如果未找到，返回-1
+         for(int i = 0; i < length; i ++)
+             if(element[i].key == searchkey)
+                 return i;
+         return -1;
+        
+    }
+    
+    template < class ElementType >
+    bool LinearList < ElementType > ::
+     InsertElementLinearList(int k, ElementType &newvalue)
+    {	//插入值为 newvalue 元素到顺序储存表中第k个元素之后，并返回true 
+        //如果不存在第 k 个元素或顺序储存线性表空间已满， 则返回出错状态码 false 
+        if(k < 0 || k > length)
+            return false;
+        if(length == MaxSpaceSize)
+            return false;
+        for(int i = length - 1;i >= k; i --)
+            element[i + 1] = element[i];
+        element[k] = newvalue;
+        length ++;
+        return true;
+    }
+    
+    template < class ElementType > 
+    bool LinearList < ElementType > :: 
+    DeleteElementLinearList(int k)
+    {   //删除顺序存储线性表中第k个数据元素并返回true；如果不存在第k个元素，返回false 
+        if(k<1 || k>length)    return false;
+        {
+             for(int i=k;i<length;i++)
+                 element[i-1]=element[i];
+             length--;
+             return true;
+        } 
+    }
+    //2 ------- end 顺序存储线性表结构模板类 LinearList 的定义的结束 
+    
+    
+    //3 ------- 主程序应用函数的定义 
+    template < class ElementType >
+    void LinearList < ElementType > :: 
+    DisplayElementLinearList(ElementType result)
+    {	//输出顺序储存线性表中的第 k 个元素, 此算法不属于模板类 LinearList
+        cout << result.number << "    ";
+        cout << result.name << "   ";
+        cout << result.sex << "   ";
+        cout << result.age << "   ";
+        cout << result.place << endl;
+    }
+    
+    template < class ElementType >
+    void LinearList < ElementType > :: 
+    DisplayLinearList(LinearList < ElementType > & AppList)
+    {	//输出顺序储存线性表中的所有数据元素, 此算法不属于模板类 LinearList
+        //算法的参数类型是模板 LinearList 类型, 对象(实例)使用引用变量
+        ElementType result;
+        cout << "              number  name  sex  age  place" << endl;
+        cout << "              ------  ----  ---  ---  -----" << endl;
+        for(int i = 1; i <= AppList.LengthLinearList(); i ++)
+        {
+    //		cout << element[i] << endl;
+            AppList.GetElementLinearList(i, result);
+            if(i<10) cout << "ELEMENT-  " << i << " :   ";
+            else cout << "ELEMENT- " << i << " :   ";
+            DisplayElementLinearList(result);
+        } 
+        cout << endl << endl;
+    }
+    
+    template <class ElementType>
+    int LinearList < ElementType > ::
+    Partition(int low,int high)
+    {  //对数组element[low...high]范围的数据进行一次快速排序
+       //并将本范围的数据按标准元素(本次排好元素)位置划分为左右两部分
+       //左边小于标准元素(本次排好元素)，右边大于标准元素(本次排好元素) 
+        int StandardKey;
+        ElementType temp;
+        temp=element[low];
+               //将待排序数据元素(标准元素)存放到中间单元temp，查找其最终存放位置
+        StandardKey=element[low].key;
+        while(low<high)
+        {  //对数组[low...high]范围的数据从两端交替地向中间与temp比较
+            while(low<high&&element[high].key>=StandardKey)
+               //temp从high向low方向比较，直到temp大于比较对象
+               high--;
+            if(low<high)
+               element[low++]=element[high];     //将小于标准元素temp的数据往前放
+            while(low<high&&element[low].key<=StandardKey)
+               //从low向high方向比较，直到temp小于比较对象
+               low++;
+            if(low<high)
+               element[high--]=element[low];     //将大于标准元素temp的数据往后放 
+        }
+        element[low]=temp;                     //标准元素temp移到low、high同时指向的位置
+        return low;                            //返回标准元素位置low(或high) 
+    } 
+     
+     template <class ElementType>
+     void LinearList < ElementType > ::
+     Qsort(int low,int high)
+     {  //对element[low...high]进行快速排序
+        //对参数1：数据空间；参数2：数据空间的起始地址；参数3：数据空间的终点地址 
+         int StandardLocation;
+         if(low<high)
+         {
+             StandardLocation=Partition(low,high);
+                      //对r[low...high]进行一次划分，并返回划分点，即标准位置
+            Qsort(low,StandardLocation-1);
+                     //对标准位置左边的数据递归快速排序
+            Qsort(StandardLocation+1,high);
+                     //对标准位置右边的数据递归快速排序 
+        }
+     }
+     
+     template <class ElementType>
+     void LinearList < ElementType > ::
+     QuickSort(int n)
+     {  //外部函数.用快速排序法对element[0...n-1]数组中的n个数据进行排序
+        //调用Qsort排序 
+         Qsort(0,n-1); 
+     }
+                </textarea>
+            </form>
+            <p>主程序</p>
+            <form action="">
+                <textarea name="" id="">
+//QuickSort_Novel.cpp
+#include <iostream>
+    #include <cstring>
+    #include <cstdlib>
+    #include "AppData_QuickSort.h"
+    #include "QuickSort_Novel.h"
+    
+    using namespace std;
+    
+    int main()
+    {
+        int MaxListSize = 35;
+        int k, choice;
+        ElementType newvalue, result;
+        char number[][8] = {"","001","002","003","004","005","006","007","008","009","010","011","012","013","014","015","016","017","018","019","020","021","022","023","024","025","026","027","028","029","030"};
+        char name[][8] = {"","萧炎","薰儿","药尘","彩鳞","唐三","小舞","沫白","小奥","红俊","荣荣","竹清","林动","清竹","欢欢","小貂","","","","","","","","","","","","","","",""};
+        char sex[][8] = {"","男","女","男","女","男","女","男","男","男","女","女","男","女","女","男","","","","","","","","","","","","","","",""};
+        char place[][8] = {"","破1","破2","破3","破4","罗1","罗2","罗3","罗4","罗5","罗6","罗7","武1","武2","武3","武4","","","","","","","","","","","","","","",""};
+        int age[] = {0,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130};
+        LinearList<ElementType>AppList(MaxListSize);
+        for(int i = 30; i >= 1; i --)
+        {
+            strcpy(newvalue.number, number[i]);
+            strcpy(newvalue.name, name[i]);
+            strcpy(newvalue.sex, sex[i]); 
+            newvalue.age = age[i];
+            strcpy(newvalue.place, place[i]);
+            AppList.InsertElementLinearList(0, newvalue);
+                                        //从线性表的最前面插入数据 
+        }
+        //假设一个新数据元素newvalue
+        strcpy(newvalue.number, "99");
+        strcpy(newvalue.name, "天使");
+        strcpy(newvalue.sex, "中");
+        newvalue.age = 999;
+        strcpy(newvalue.place, "天堂");
+        while(true)
+        {
+            cout << "*********************** 顺序储存线性表顺序储存的运算 ***********************" << endl;
+            cout << "*    0 -------- 退出                                                       * " << endl; 
+            cout << "*    1 -------- 输出顺序储存线性表中的所有元素                             * " << endl; 
+            cout << "*    2 -------- 在顺序储存线性表中查找地k个元素                            * " << endl; 
+            cout << "*    3 -------- 在顺序储存线性表中查找符合查找关键字searchkey(住址)的元素  * " << endl; 
+            cout << "*    4 -------- 在顺序储存线性表中插入新元素到第k个元素后面                * " << endl; 
+            cout << "*    5 -------- 在顺序储存线性表中删除第k个元素                            * " << endl;
+            cout << "*    6 -------- 按照key(age)快速排序                                       * " << endl;
+            cout << "**************************************************************************** " << endl;
+            cout << "请选择处理功能：";
+            cin >> choice;
+            system("cls"); //调用清屏指令 
+            //------- 输出顺序储存线性表中的所有数据元素
+            cout << endl << "此操作前顺序储存线性表状态：" << endl << endl; 
+            AppList.DisplayLinearList(AppList);
+            switch(choice)
+            {
+                case 0:
+                    {//退出 
+                        system("cls");
+                        return 0;
+                    }
+                case 1:
+                    {//1 ------- 输出顺序储存线性表中的所有元素
+                        cout << " ******* 输出线性储存线性表中的所有元素 ******* " << endl << endl;
+                        AppList.DisplayLinearList(AppList); 
+                        break;
+                    }
+                case 2:
+                    {//2 ------- 在线性储存线性表中查找第k个元素
+                        cout << " ******* 在线性储存线性表中查找第k个元素 *******" << endl << endl;
+                        cout << " 查找第几个元素？";
+                        cin >> k;
+                        cout << " ***** 查找结果如下：" << endl;
+                        if( AppList.GetElementLinearList(k, result))
+                        {
+                            cout << "ELEMENT -" << k << " :";
+                            AppList.DisplayElementLinearList(result);
+                         } 
+                        else
+                            cout << "ERROR K值的范围不对！ 无此元素！ ERROR" << endl << endl;
+                        break;
+                    }
+                case 3:
+                    {//3 ------- 在顺序储存线性表中查找符合查找关键字 searchkey 的元素 
+                        cout << " ********** 在顺序储存线性表中查找符合关键字 searchkey 的元素 **********" << endl << endl;
+                        char searchkey[8];
+                        cout << "输入查找关键字 searchkey（住址）的值：";
+                        cin >> searchkey;
+                        //键盘输入查找关键字的值 searchkey
+                        k = AppList.SearchElementLinearList(searchkey);
+                        cout << endl << " ***** 查找结果如下：" << endl;
+                        if(k!=-1)  //k是查找运算执行后返回的地址值.k为-1时为空
+                        {
+                            AppList.GetElementLinearList(k+1,result);
+                            cout<< "ELEMENT -" <<k+1<<" :";
+                            AppList.DisplayElementLinearList(result);
+                        } 
+                        else 
+                            cout << "ERROR 无此关键字的元素！ERROR" << endl << endl;
+                        break;
+                    }
+                case 4:
+                    {//4 ------- 在顺序储存线性表中插入新元素到第k个元素后面
+                        cout << " ********** 在顺序储存线性表中插入新元素到第k个元素后面 ********** "<< endl << endl;
+                        cout << "插入到第几个后面？";
+                        cin >> k;
+                        cout << "输入要插入的元素的各值";
+                        
+                        cout << "    编号：" << newvalue.number << "    "; //cin >> x.number;
+                        cout << "    姓名：" << newvalue.name << "    ";   //cin >> x.name;
+                        cout << "    性别：" << newvalue.sex << "    ";    //cin >> x.sex;
+                         cout << "    年龄：" << newvalue.age << "    ";    //xin >> x.age;
+                        cout << "    住址：" << newvalue.place << "    ";  //cin >> x.place;
+                    
+                    
+                        if(AppList.InsertElementLinearList(k, newvalue))
+                        {
+                            cout << "插入到第" << k << "个元素后的顺序储存线性表结果：" << endl;
+                            AppList.DisplayLinearList(AppList);
+                        }
+                        else
+                            cout << "ERROR找不到插入点， K值范围不对或者空间不足！ERROR" << endl << endl;
+                        break;
+                    }
+                    case 5:
+                        {//5 ------- 在顺序储存线性表中删除第k个元素  
+                            cout << " ********** 在顺序储存线性表中删除第k个元素 ********** " << endl << endl;
+                            cout << " 删除第几个元素？";
+                            cin >> k;
+                            if(AppList.DeleteElementLinearList(k))
+                            {
+                                cout << "删除元素后的线性表储存结果：" << endl;
+                                AppList.DisplayLinearList(AppList); 
+                            }
+                            else 
+                                cout << "ERROR 找不到要删除的结点， K值范围不对！ERROR" << endl << endl;
+                            break;
+                        }									//end switch
+                    case 6:
+                        {//6 ------- 按照key快速排序
+                            AppList.QuickSort(30);
+                            cout<<endl<<endl;
+                            cout<<"快速排序后的线性表："<<endl;
+                            AppList.DisplayLinearList(AppList);
+                            break; 
+                        } 
+            }
+            
+        
+        cout << "顺序储存线性表长度：" << AppList.LengthLinearList() << endl;
+        system("pause");
+        system("cls");
+            
+        
+        }
+        
+        
+        return 0; 
+    }
+                </textarea>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="content">
+            @张毅<span>'S</span> 博客
+        </div>
+    </div>
+</body>
+
+</html>

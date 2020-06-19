@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>张毅'S博客</title>
+    <link rel="stylesheet" type="text/css" href="./css/decorate.css">
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
+    <link rel="stylesheet" type="text/css" href="./css/content.css">
+</head>
+
+<body>
+    <!--旋转正方体 start-->
+    <div class="wrap">
+        <!--包裹所有元素的容器-->
+        <div class="cube">
+            <!--前面图片 -->
+            <div class="out_front">
+                <img src="./img/in_1.jpg" class="pic">
+            </div>
+            <!--后面图片 -->
+            <div class="out_back">
+                <img src="./img/in_2.jpg" class="pic">
+            </div>
+            <!--左面图片 -->
+            <div class="out_left">
+                <img src="./img/in_3.jpg" class="pic">
+            </div>
+            <!--右面图片 -->
+            <div class="out_right">
+                <img src="./img/in_4.jpg" class="pic">
+            </div>
+            <!--上面图片 -->
+            <div class="out_top">
+                <img src="./img/in_5.jpg" class="pic">
+            </div>
+            <!--下面图片 -->
+            <div class="out_bottom">
+                <img src="./img/in_6.jpg" class="pic">
+            </div>
+
+            <!--小正方体 -->
+            <span class="in_front">
+                <img src="./img/bg_1.jpg" class="in_pic">
+            </span>
+            <span class="in_back">
+                 <img src="./img/bg_2.jpg" class="in_pic">
+            </span>
+            <span class="in_left">
+                <img src="./img/bg_3.jpg" class="in_pic">
+            </span>
+            <span class="in_right">
+                <img src="./img/bg_4.jpg" class="in_pic">
+            </span>
+            <span class="in_top">
+                <img src="./img/bg_5.jpg" class="in_pic">
+            </span>
+            <span class="in_bottom">
+                <img src="./img/bg_6.jpg" class="in_pic">
+            </span>
+        </div>
+    </div>
+
+    <div class="header">
+        <div class="logo">
+            <a href="/my.html" target="_blank">
+                <img src="/img/me.jpg">
+            </a>
+            <div class="title">
+                张毅<span>'S</span> 博客
+            </div>
+        </div>
+        <div class="text">
+            <div>希望是一个好东西</div>
+            <div>也许是最好的东西</div>
+            <div>而美好的事物永不消逝</div>
+            <div>---《肖申克的救赎》</div>
+        </div>
+    </div>
+
+    <div class="body">
+        <h3>分类二叉树</h3>
+        <div class="content">
+            <p>定义顺序存储堆栈结构模板类、构建分类二叉树算法</p>
+            <form action="">
+                <textarea name="" id="">
+//App.Data.h
+#define STUDENT ElementType            //实例数据元素句柄化
+#define age key
+
+struct STUDENT
+{
+	char number[10];
+	char name[8];
+	char sex[3];
+	int age;
+	char place[20];
+};
+
+//SortBinaryTree.h
+#include <iostream>
+    using namespace std;
+    //--------------------------------顺序存储堆栈类--------------------------------
+    template <class StackType>
+    class Stack
+    {
+        //顺序存储堆栈结构模板类Stack的定义
+        public:
+            Stack(int MaxStackSize = 20);
+            ~Stack(){delete [] element;};
+            bool IsEmpty(){return top == -1;};
+            bool IsFull(){return top >= MaxSpaceSize-1;};
+            bool GetTop(StackType & result);
+            bool Push(StackType & newvalue);
+            bool Pop(StackType & result);
+            int GetTopAddress(){return top;};
+        private:
+            int top;
+            int MaxSpaceSize;
+            StackType * element;
+    };
+    
+    template <class StackType>
+    Stack<StackType>::
+    Stack(int MaxStackSize)
+    {
+        //构造函数，堆栈数据元素存放于element[0,……,MaxStackSize-1]
+        MaxSpaceSize = MaxStackSize;
+        element = new StackType[MaxSpaceSize];
+        top = -1; 
+    }
+    
+    template <class StackType>
+    bool Stack<StackType>::
+    GetTop(StackType & result)
+    {
+        //获取栈顶元素值
+        if(IsEmpty()) return false;
+        result = element[top];
+        return true; 
+    }
+    
+    template <class StackType>
+    bool Stack<StackType>::
+    Push(StackType & newvalue)
+    {
+        //进栈
+        if(IsFull()) return false;
+          element[++top] = newvalue;
+        return true; 
+    }
+    
+    template <class StackType>
+    bool Stack<StackType>::
+    Pop(StackType & result)
+    {
+        //出栈
+        if(IsEmpty()) return false;
+          result = element[top--];
+        return true; 
+    }
+    //-----------------------------分类二叉树算法-----------------------------
+    class BinaryTreeNode
+    {
+        public:
+            ElementType data;
+            BinaryTreeNode * LChild;
+            BinaryTreeNode * RChild;
+    };
+    
+    class StackType
+    {
+        public:
+            BinaryTreeNode * ptr;
+            bool status;
+    };
+    
+    template <class ElementType>
+    class BinaryTree
+    {
+        public:
+            BinaryTree(){BTroot = NULL;};
+            ~BinaryTree(){};
+            bool IsEmpty(){return BTroot;};
+            void PreOrderNoRecursive(BinaryTreeNode * BTroot);
+            void InOrderNoRecursive(BinaryTreeNode * BTroot);
+            void PostOrderNoRecursive(BinaryTreeNode * BTroot);
+            BinaryTreeNode * MakeNode(ElementType & newvalue);
+            void MakeBinaryTree(BinaryTreeNode * root,BinaryTreeNode * left,BinaryTreeNode * right);
+            BinaryTreeNode * DeleteBinaryTree(BinaryTreeNode * BTroot);
+            void NodesCount(BinaryTreeNode * BTroot,int & count);
+            int Height(BinaryTreeNode * BTroot);
+            void DisplayNode(BinaryTreeNode * p);
+            bool SearchElementSortBinaryTree(BinaryTreeNode * BTroot,ElementType &result,int &SearchKey);
+            bool InsertElementSortBinaryTree(BinaryTreeNode * BTroot,ElementType &newvalue);
+            BinaryTreeNode * DeleteElementSortBinaryTree_FromLeftTreeUpMaxNode(BinaryTreeNode *BTroot,int &SearchKey); 
+        private:
+            BinaryTreeNode * BTroot;
+    };
+    
+    template <class ElementType>
+    BinaryTreeNode * BinaryTree<ElementType>::
+    MakeNode(ElementType & newvalue)
+    {
+        //构造结点
+        BinaryTreeNode * ptr;
+        ptr = new BinaryTreeNode;
+        if(!ptr) return NULL;
+        ptr -> data = newvalue;
+        ptr -> LChild = NULL;
+        ptr -> RChild = NULL;
+        return ptr; 
+    }
+    
+    template <class ElementType>
+    void BinaryTree<ElementType>::
+    MakeBinaryTree(BinaryTreeNode * root,BinaryTreeNode * left,BinaryTreeNode * right)
+    {
+        //连接root,left,right所指的结点指针为二叉树
+        root -> LChild = left;
+        root -> RChild = right; 
+    }
+    
+    template <class ElementType>
+    int BinaryTree<ElementType>::
+    Height(BinaryTreeNode * BTroot)
+    {
+        //返回二叉树的高度 
+        if(!BTroot) return 0;
+        int HighL = Height(BTroot -> LChild);
+        int HighR = Height(BTroot -> RChild);
+        if(HighL > HighR) return ++HighL;
+        else return ++HighR;
+    }
+    
+    template <class ElementType>
+    void BinaryTree<ElementType>::
+    NodesCount(BinaryTreeNode * BTroot,int & count)
+    {
+        //二叉树的结点计数
+        if(BTroot)
+        {
+            count++;                           //二叉树的结点计数
+            NodesCount(BTroot -> LChild,count);
+            NodesCount(BTroot -> RChild,count); 
+        } 
+    }
+    
+    template <class ElementType>
+    BinaryTreeNode * BinaryTree<ElementType>::
+    DeleteBinaryTree(BinaryTreeNode * BTroot)
+    {
+        //二叉树的删除算法
+        if(BTroot)
+        {
+            DeleteBinaryTree(BTroot -> LChild);
+            DeleteBinaryTree(BTroot -> RChild);
+        }
+        BTroot = NULL;
+        return BTroot;
+    }
+    
+    template <class ElementType>
+    void BinaryTree<ElementType>::
+    PreOrderNoRecursive(BinaryTreeNode * BTroot)
+    {
+        //二叉树的前序遍历非递归算法
+        BinaryTreeNode * p = BTroot;
+        StackType temp;
+        int MaxStackSize = Height(BTroot);
+        Stack <StackType> S(MaxStackSize);     //创建一个空栈
+        while((p)||!S.IsEmpty())
+        {
+            if(p)
+            {
+                //Visit(BTroot);               //访问二叉树的结点
+                DisplayNode(p);
+                temp.ptr = p;
+                S.Push(temp);                  //根结点指针进栈，以后回溯时再退栈
+                p = p -> LChild;               //指针指向访问过的根结点左子树 
+            }
+            else
+                if(!S.IsEmpty())
+                {
+                    S.Pop(temp);              //从堆栈中弹出回溯结点指针（该结点已访问过） 
+                    p = temp.ptr;
+                    p = p -> RChild;          //指针指向回溯结点的右子树 
+                }
+        } 
+    }
+    
+    template <class ElementType>
+    void BinaryTree<ElementType>::
+    InOrderNoRecursive(BinaryTreeNode * BTroot)
+    {
+        //二叉树的中序遍历非递归算法
+        BinaryTreeNode * p = BTroot;
+        StackType temp;
+        int MaxStackSize = Height(BTroot);
+        Stack <StackType> S(MaxStackSize);    //创建一个空栈
+        while(p||!S.IsEmpty()) 
+        {
+            while(p)                          //找最左子树 
+            {
+                temp.ptr = p;
+                S.Push(temp);                //根结点（未访问）指针进栈，以后回溯时再退栈 
+                p = p -> LChild;             //指针指向该结点左子树 
+            }
+            if(!S.IsEmpty())                 //左子树为空时，利用堆栈回溯 
+            {
+                S.Pop(temp);                 //从堆栈中弹出回溯结点指针（该结点未访问过） 
+                p = temp.ptr;
+                //Visit(BTroot);             //访问二叉树的结点 
+                DisplayNode(p);
+                p = p -> RChild;             //指针指向回溯结点的右子树 
+            }
+        } 
+    }
+    
+    template <class ElementType>
+    void BinaryTree<ElementType>::
+    PostOrderNoRecursive(BinaryTreeNode * BTroot)
+    {
+        //二叉树的后序遍历非递归算法
+        BinaryTreeNode * p = BTroot;
+        StackType temp;
+        int MaxStackSize = Height(BTroot);
+        Stack <StackType> S(MaxStackSize);   //创建一个空栈
+        while((p)||!S.IsEmpty())
+        {
+            if(p)  //找最左子树 
+            {
+                temp.status = false;         //准备进栈的结点进栈标志设为第一次进栈 
+                temp.ptr = p;
+                S.Push(temp);                //根结点（未访问）指针及标志进栈，回溯时再退栈 
+                p = p -> LChild;             //指针指向该根结点左子树 
+            }
+            else
+            if(!S.IsEmpty())                 //左子树为空时，利用堆栈回溯 
+            {
+                S.Pop(temp);                 //从堆栈中弹出回溯结点指针及标志（该结点未访问过） 
+                p = temp.ptr;                //p指向退栈结点，否则p的值是空 
+                if(temp.status)
+                {
+                    //Visit(BTroot);         //访问二叉树的结点 
+                    DisplayNode(p);
+                    p = NULL;                //将p设为空的目的是为强制退栈做准备 
+                }
+                else
+                {
+                    temp.status = true;      //改变进栈标志，准备重新进栈 
+                    S.Push(temp);
+                    p = p -> RChild;         //指针指向根的右子树 
+                }
+            }
+        }
+    }
+    
+    template <class ElementType>
+    void BinaryTree<ElementType>::
+    DisplayNode(BinaryTreeNode * p)
+    {
+        cout<<"   "
+            <<p -> data.number<<"   "
+            <<p -> data.name<<"   "
+            <<p -> data.sex<<"   "
+            <<p -> data.age<<"   "
+            <<p -> data.place<<endl;
+    }
+    
+    template <class ElementType>
+    bool BinaryTree<ElementType>::
+    SearchElementSortBinaryTree(BinaryTreeNode * BTroot,ElementType &result,int &SearchKey)
+    {
+        //求查找关键字为SearchKey的结点值x
+        BinaryTreeNode *p = BTroot;
+        while(p)
+            if(SearchKey < p -> data.age)
+                p = p -> LChild;
+            else
+                if(SearchKey > p -> data.age)
+                    p = p -> RChild;
+                else
+                {
+                    //result = p;
+                    result = p -> data;
+                    return true;
+                }
+        return false;
+    }
+    
+    template <class ElementType>
+    bool BinaryTree<ElementType>::
+    InsertElementSortBinaryTree(BinaryTreeNode * BTroot,ElementType &newvalue)
+    {
+        //求如果不重复出现，则插入结点newvalue
+        BinaryTreeNode * p = BTroot;
+        BinaryTreeNode * parent = NULL;  //指向p的双亲
+        while(p)
+        {
+            parent = p;
+            if(newvalue.age < p -> data.age)
+                p = p -> LChild;
+            else
+    //		if(newvalue.age > p -> data.age)
+                p = p -> RChild;
+    //		else
+    //		return false;  //重复出现，即相等值结点出现 
+        }
+        //找到插入点，为newvalue申请一个空间填入其值，并将该结点连接至parent
+        BinaryTreeNode * q = new BinaryTreeNode;
+        q -> data = newvalue;
+        q -> LChild = NULL;
+        q -> RChild = NULL;
+        if(BTroot)
+        {
+            //原树非空
+            if(newvalue.age < parent -> data.age)
+                parent -> LChild = q;
+            else
+                parent -> RChild = q; 
+        }
+        else
+            BTroot = q;
+        return true;
+    }
+    
+    template <class ElementType>
+    BinaryTreeNode *BinaryTree<ElementType>::
+    DeleteElementSortBinaryTree_FromLeftTreeUpMaxNode(BinaryTreeNode *BTroot,int &SearchKey)
+    {  //删除关键值为SearchKey的结点
+       BinaryTreeNode *p=BTroot,*parent=NULL;                              //parent指向p的双亲 
+       BinaryTreeNode *son,*ps;                                  //ps指向son的双亲
+       while(p && p->data.age!=SearchKey)
+       {  //查找删除结点p 
+               parent=p;
+               if(SearchKey< p->data.age)
+                 p=p->LChild;
+               else
+                 p=p->RChild; 
+       }
+       if(!p)                           //p为空时,不存在删除结点
+       {
+               cout<<"****没有删除结点!*****"<<endl;
+               return BTroot;
+       }
+       //重构二叉树
+       if(p->LChild && p->RChild)
+       {  //被删除结点存在两个子树,在p的左子树中查找最大元素(最右子孙)
+          //并用此结点值替换被删除结点的值 
+             //替换后,被删除操作改变为删除找到的最大元素(最右子孙)
+           son=p->LChild;
+           ps=p;
+           while(son->RChild)
+           {  //son推进到p的左子树中的最大元素(最右子孙)
+              ps=son; 
+                 son=son->RChild;
+           }
+           p->data=son->data;               //左子树中的最大元素(最右子孙)值移到p
+           p=son;
+           parent=ps;
+           //被删除结点转换为左子树中的最大元素
+           //所以p指向左子树中的最大元素,parent指向son的shuangqin 
+        }
+        if(p->LChild)                      //p最多只有一个孩子
+           son=p->LChild;
+        else                               //被删结点p存在右孩子或叶子结点
+           son=p->RChild;                  //被删结点p是叶子结点时,son值为空
+        if(p==BTroot)                      //被删结点是根
+           BTroot=son;
+        else
+        {  //判断p是parent左孩子还是右孩子 
+            if(p==parent ->LChild)
+               parent ->LChild=son;
+            else 
+               parent ->RChild=son;
+        }
+        delete p;
+        return BTroot; 
+    }
+                </textarea>
+            </form>
+            <p>主程序</p>
+            <form action="">
+                <textarea name="" id="">
+//SortBinaryTree.cpp
+#include <iostream>
+    #include <cstring>
+    #include <stdlib.h>
+    #include "App.Data.h"
+    #include "SortBinaryTree.h"
+    
+    int main()
+    {
+        int choice;
+        int High,count;
+        BinaryTreeNode * BTroot, * pp[10];
+        ElementType newvalue;
+        char number[][8] = {"","001","002","003","004","005","006","007","008","009","010"};
+        char name[][8] = {"","萧炎","薰儿","药尘","彩鳞","唐三","小舞","林动","清竹","欢欢","小貂"};
+        char sex[][8] = {"","男","女","男","女","男","女","男","女","女","男"};
+        char place[][8] = {"","破1","破2","破3","破4","罗5","罗6","武7","武8","武9","武0"};
+        int age[] = {0,101,102,103,104,105,106,107,108,109,110};
+        BinaryTree <ElementType> AppBT;
+        for(int i = 1;i < 11;i++)
+        {
+            strcpy(newvalue.number,number[i]);
+            strcpy(newvalue.name,name[i]);
+            strcpy(newvalue.sex,sex[i]);
+            strcpy(newvalue.place,place[i]);
+            newvalue.age = age[i];
+            pp[i] = AppBT.MakeNode(newvalue);
+        }
+        AppBT.MakeBinaryTree(pp[7],pp[6],pp[9]);     //           pp[7]
+        AppBT.MakeBinaryTree(pp[6],pp[4],NULL);      //       pp[6]    pp[9]
+        AppBT.MakeBinaryTree(pp[9],pp[8],pp[10]);     //     pp[4]    pp[8] pp[10]
+        AppBT.MakeBinaryTree(pp[4],pp[2],pp[5]);     //   pp[2] pp[5] 
+        AppBT.MakeBinaryTree(pp[2],pp[1],pp[3]);    //pp[1] pp[3]
+        BTroot = pp[7];
+        while(true)
+        {
+            cout<<endl;
+            cout<<"************分类二叉树的相关算法***************"<<endl;
+            cout<<"*  1---求分类二叉树的深度（高度）             *"<<endl;
+            cout<<"*  2---求分类二叉树中结点的个数               *"<<endl;
+            cout<<"*  3---分类二叉树的前序非递归遍历             *"<<endl;
+            cout<<"*  4---分类二叉树的中序非递归遍历             *"<<endl;
+            cout<<"*  5---分类二叉树的后序非递归遍历             *"<<endl;
+            cout<<"*  6---删除分类二叉树的所有结点，并释放空间   *"<<endl;
+            cout<<"*  7---查找关键字为SearchKey的结点值          *"<<endl;
+            cout<<"*  8---插入新结点newvalue                     *"<<endl;
+            cout<<"*  9---删除关键字为SearchKey的结点            *"<<endl;
+            cout<<"*  0---退出                                   *"<<endl;
+            cout<<"***********************************************"<<endl;
+            cout<<"请选择处理功能:";
+            cin>>choice;
+            cout<<endl;
+            system("cls");
+            switch(choice)
+            {
+                case 1:
+                    {
+                        //1---求分类二叉树的深度（高度）
+                        High = AppBT.Height(BTroot);
+                        cout<<"分类二叉树的树高="<<High<<endl<<endl;
+                        break; 
+                    }
+                case 2:
+                    {
+                        //2---求分类二叉树中的结点个数
+                        count = 0;
+                        AppBT.NodesCount(BTroot,count);
+                        cout<<"分类二叉树中的结点个数="<<count<<endl<<endl;
+                        break; 
+                    }
+                case 3:
+                    {
+                        //3---分类二叉树的前序非递归遍历
+                        cout<<"分类二叉树的前序非递归遍历结果:"<<endl;
+                        cout<<"   编号  姓名  性别  年龄  住址"<<endl;
+                        cout<<"-------------------------------"<<endl;
+                        AppBT.PreOrderNoRecursive(BTroot);
+                        cout<<endl<<endl;
+                        break; 
+                    }
+                case 4:
+                    {
+                        //4---分类二叉树的中序非递归遍历
+                        cout<<"分类二叉树的中序非递归遍历结果:"<<endl;
+                        cout<<"   编号  姓名  性别  年龄  住址"<<endl;
+                        cout<<"-------------------------------"<<endl;
+                        AppBT.InOrderNoRecursive(BTroot);
+                        cout<<endl<<endl;
+                        break; 
+                    }
+                case 5:
+                    {
+                        //5---分类二叉树的后序非递归遍历
+                        cout<<"分类二叉树的后序非递归遍历结果:"<<endl;
+                        cout<<"   编号  姓名  性别  年龄  住址"<<endl;
+                        cout<<"-------------------------------"<<endl;
+                        AppBT.PostOrderNoRecursive(BTroot);
+                        cout<<endl<<endl;
+                        break; 
+                    }
+                case 6:
+                    {
+                        //6---删除分类二叉树的所有结点，并释放空间
+                        BTroot = AppBT.DeleteBinaryTree(BTroot);
+                        break; 
+                    }
+                case 7:
+                    {
+                        //7---查找关键字为SearchKey的结点值result
+                        int SearchKey;
+                        ElementType result;
+                        cout<<"请输入查找关键字:"<<endl;
+                        cout<<"SearchKey=";
+                        cin>>SearchKey;
+                        AppBT.SearchElementSortBinaryTree(BTroot,result,SearchKey);
+                        cout<<"   编号  姓名  性别  年龄  住址"<<endl;
+                        cout<<"-------------------------------"<<endl;
+                        cout<<"   "<<result.number<<"   "<<result.name<<"   "<<result.sex<<"   "
+                            <<result.place<<"   "<<result.age<<"   "<<endl;
+                        break;
+                    }
+                case 8:
+                    {
+                        //8---插入新结点newvalue
+                        ElementType newvalue;
+                        cout<<"插入新结点newvalue如下:"<<endl;
+                        cout<<"   编号  姓名  性别  年龄  住址"<<endl;
+                        cout<<"-------------------------------"<<endl;
+                        strcpy(newvalue.number,"011");
+                        strcpy(newvalue.name,"牧尘");
+                        strcpy(newvalue.sex,"男");
+                        strcpy(newvalue.place,"大1");
+                        newvalue.age = 111;
+                        cout<<"   011   牧尘   男   111   大1   "<<endl<<endl;
+                        AppBT.InsertElementSortBinaryTree(BTroot,newvalue);
+                        cout<<"插入后中序非递归遍历结果为:"<<endl;
+                        cout<<"   编号  姓名  性别  年龄  住址"<<endl;
+                        cout<<"-------------------------------"<<endl;
+                        AppBT.InOrderNoRecursive(BTroot);
+                        cout<<endl<<endl;
+                        break;
+                    }
+                case 9:
+                    {
+                        //9---删除关键字为SearchKey的结点
+                        cout<<"请输入关键字SearchKey:"<<endl;
+                        cout<<"SearchKey=";
+                        int SearchKey; 
+                        cin>>SearchKey;
+                        cout<<endl<<endl;
+                        AppBT.DeleteElementSortBinaryTree_FromLeftTreeUpMaxNode(BTroot,SearchKey);
+                        cout<<"删除后中序非递归遍历结果为:"<<endl;
+                        cout<<"   编号  姓名  性别  年龄  住址"<<endl;
+                        cout<<"-------------------------------"<<endl;
+                        AppBT.InOrderNoRecursive(BTroot);
+                        cout<<endl<<endl;
+                        break;
+                    }
+                case 0:
+                    {
+                        return 0;
+                        break;
+                    }
+            }
+            system("pause");
+            system("cls");
+        }
+    }
+    
+                </textarea>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="content">
+            @张毅<span>'S</span> 博客
+        </div>
+    </div>
+</body>
+
+</html>
